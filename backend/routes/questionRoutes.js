@@ -1,61 +1,52 @@
-const express = require("express");
-const Question = require("../models/Question");
-const authMiddleware = require("../middleware/authMiddleware");
+import express from "express";
+import Question from "../models/Question.js";
+import  authMiddleware from "../middleware/authMiddleware.js"; // ✅ uncomment this
 
 const router = express.Router();
 
-// Add a new question
-router.post("/", authMiddleware, async (req, res) => {
-  try {
-    const { title, url, topic, difficulty, notes } = req.body;
-    const question = new Question({ title, url, topic, difficulty, notes, userId: req.user.id });
-    await question.save();
-    res.json(question);
-  } catch (error) {
-    res.status(500).json({ message: "Server Error" });
-  }
-});
-
-// Get all saved questions for the logged-in user
+// ✅ Add middleware here
 router.get("/", authMiddleware, async (req, res) => {
   try {
-    const questions = await Question.find({ userId: req.user.id });
+    const questions = await Question.find({ user: req.user._id }).sort({ createdAt: -1 });
     res.json(questions);
   } catch (error) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(500).json({ message: "Server error while fetching questions" });
   }
 });
 
-// Update a question
-router.put("/:id", authMiddleware, async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
+  const { title, url, notes = "", tags = "", difficulty = "", status = false, revisit = false } = req.body;
+
   try {
-    const { notes } = req.body;
-    const question = await Question.findById(req.params.id);
+    const newQuestion = new Question({
+      title,
+      url,
+      notes,
+      tags,
+      difficulty,
+      status,
+      revisit,
+      user: req.user._id,
+    });
 
-    if (!question) return res.status(404).json({ message: "Question not found" });
-    if (question.userId.toString() !== req.user.id) return res.status(403).json({ message: "Unauthorized" });
-
-    question.notes = notes;
-    await question.save();
-    res.json(question);
+    const saved = await newQuestion.save();
+    res.status(201).json(saved);
   } catch (error) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(400).json({ message: "Failed to save question", error });
   }
 });
 
-// Delete a question
-router.delete("/:id", authMiddleware, async (req, res) => {
+router.patch("/:id", authMiddleware, async (req, res) => {
   try {
-    const question = await Question.findById(req.params.id);
-
-    if (!question) return res.status(404).json({ message: "Question not found" });
-    if (question.userId.toString() !== req.user.id) return res.status(403).json({ message: "Unauthorized" });
-
-    await question.remove();
-    res.json({ message: "Question deleted" });
+    const updated = await Question.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(updated);
   } catch (error) {
-    res.status(500).json({ message: "Server Error" });
+    res.status(400).json({ message: "Failed to update question", error });
   }
 });
 
-module.exports = router;
+export default router;

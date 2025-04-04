@@ -1,12 +1,19 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const QuestionSchema = new mongoose.Schema({
+const questionSchema = new mongoose.Schema({
   title: { type: String, required: true },
   url: { type: String, required: true },
-  topic: { type: String, required: true },
-  difficulty: { type: String, required: true },
-  notes: { type: String },
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Link to User
-});
+  notes: { type: String, default: "" },
+  tags: { type: String, default: "" },
+  difficulty: { type: String, default: "" },
+  status: { type: Boolean, default: false },
+  revisit: { type: Boolean, default: false },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true
+  },
+}, { timestamps: true });
 
-module.exports = mongoose.model("Question", QuestionSchema);
+const Question = mongoose.model("Question", questionSchema);
+export default Question;
