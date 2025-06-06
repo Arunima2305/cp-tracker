@@ -37,7 +37,7 @@ CodeFlow is a full-stack web app that helps users track their Competitive Progra
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/yourusername/cp-tracker.git
+git clone https://github.com/Arunima2305/cp-tracker.git
 cd cp-tracker
 ```
 
