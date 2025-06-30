@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add to Dashboard</title>
+  <style>
+    body { font-family: sans-serif; min-width: 250px; padding: 10px;}
+    input, button, textarea { width: 100%; margin-top: 8px;}
+    .small { font-size: 0.9em; color: #888;}
+  </style>
+</head>
+<body>
+  <label>URL</label>
+  <input id="url" readonly />
+  <label>Title</label>
+  <input id="title" />
+  <label>Difficulty</label>
+  <input id="difficulty" />
+  <label>Tags</label>
+  <input id="tags" />
+  <label>Notes</label>
+  <textarea id="notes"></textarea>
+  <button id="fetchBtn">Fetch Details</button>
+  <button id="addBtn" style="margin-top:8px;">Add to Dashboard</button>
+  <div id="result" style="margin-top:10px;color:green;"></div>
+  <div class="small" id="loading"></div>
+  <script src="popup.js"></script>
+</body>
+</html>

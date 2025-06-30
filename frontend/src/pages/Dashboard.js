@@ -22,6 +22,9 @@ import {
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import NotesIcon from '@mui/icons-material/Notes';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { motion, AnimatePresence } from "framer-motion";
+
 
 export default function Dashboard() {
   const [questions, setQuestions] = useState([]);
@@ -49,6 +52,18 @@ export default function Dashboard() {
     notes: "",
     difficulty: "",
   });
+
+  const [copySuccess, setCopySuccess] = useState("");
+const token = localStorage.getItem('token');
+const handleCopyToken = () => {
+  if (token) {
+    navigator.clipboard.writeText(token);
+    setCopySuccess("Token copied!");
+    setTimeout(() => setCopySuccess(""), 1500);
+  }
+};
+const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
+
 
   useEffect(() => {
     fetchQuestions();
@@ -147,10 +162,31 @@ export default function Dashboard() {
       console.error("Failed to add autofilled question:", err);
     }
   };
+ const containerVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.05, delayChildren: 0.15 } },
+  };
+  const rowVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 },
+  };
+
 
   return (
     <Box sx={{ p: 4, bgcolor: '#c3aa94', minHeight: '100vh' }}>
+       <motion.div
+    initial={{ opacity: 0, y: 32 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, ease: "easeOut" }}>
+      
       <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 2, mb: 2 }}>
+         <Button
+        variant="outlined"
+        sx={{ color: '#534E4A', borderColor: '#534E4A' }}
+        onClick={() => setTokenDialogOpen(true)}
+      >
+        EXTENSION TOKEN
+      </Button>
         <Button
           variant="outlined"
           sx={{ color: '#534E4A', borderColor: '#534E4A' }}
@@ -166,6 +202,8 @@ export default function Dashboard() {
           + Add Question
         </Button>
       </Box>
+      </motion.div>
+      
 
       <TableContainer component={Paper} sx={{ backgroundColor: '#F5F1EC', borderRadius: 2 }}>
         <Table>
@@ -275,6 +313,36 @@ export default function Dashboard() {
           <Button onClick={handleSubmitAutofilled} variant="contained">Add Question</Button>
         </DialogActions>
       </Dialog>
+
+      <Dialog open={tokenDialogOpen} onClose={() => setTokenDialogOpen(false)} maxWidth="sm" fullWidth>
+  <DialogTitle>Extension Token</DialogTitle>
+  <DialogContent>
+    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 1 }}>
+      <TextField
+        value={token || ""}
+        size="small"
+        InputProps={{ readOnly: true }}
+        sx={{ flex: 1 }}
+      />
+      <Button
+        variant="outlined"
+        startIcon={<ContentCopyIcon />}
+        onClick={handleCopyToken}
+        disabled={!token}
+      >
+        Copy
+      </Button>
+    </Box>
+    <span style={{ color: 'green', marginLeft: 8 }}>{copySuccess}</span>
+    <div style={{ fontSize: "0.9em", marginTop: 4 }}>
+      Paste this in your Chrome extension popup to connect it to your account.
+    </div>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={() => setTokenDialogOpen(false)}>Close</Button>
+  </DialogActions>
+</Dialog>
+
     </Box>
   );
 }

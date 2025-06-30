@@ -14,6 +14,8 @@ router.get("/", authMiddleware, async (req, res) => {
   }
 });
 
+//to add a new question
+
 router.post("/", authMiddleware, async (req, res) => {
   const { title, url, notes = "", tags = "", difficulty = "", status = false, revisit = false } = req.body;
 
