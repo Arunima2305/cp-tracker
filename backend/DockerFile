@@ -1,0 +1,31 @@
+# Dockerfile for Node.js Express backend with Puppeteer support
+
+# 1. Base image: Node 18 on Debian slim
+FROM node:18-bullseye-slim
+
+# 2. Install Google Chrome stable and its dependencies
+RUN apt-get update \
+    && apt-get install -y wget gnupg --no-install-recommends \
+    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" \
+       > /etc/apt/sources.list.d/google-chrome.list \
+    && apt-get update \
+    && apt-get install -y google-chrome-stable --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
+# 3. Set working directory
+WORKDIR /app
+
+# 4. Copy dependency definitions and install
+COPY package.json package-lock.json ./
+# Use npm ci for clean install, omit devDependencies in production
+RUN npm ci --omit=dev
+
+# 5. Copy the rest of the application code
+COPY . .
+
+# 6. Expose the application port (match your server.js PORT)
+EXPOSE 5000
+
+# 7. Default command to start the server
+CMD ["npm", "start"]
