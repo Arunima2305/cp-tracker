@@ -15,11 +15,10 @@ async function scrapeCodeforces(url) {
   let browser = null;
   try {
     browser = await puppeteerExtra.launch({
-      args: chromium.args,
-      executablePath: await chromium.executablePath,
-      headless: chromium.headless,
-      defaultViewport: chromium.defaultViewport,
-    });
+  headless: true,
+  executablePath: "/usr/bin/chromium",
+  args: ["--no-sandbox","--disable-setuid-sandbox","--disable-dev-shm-usage"],
+});
 
     // ...the rest of your scraping logic...
     const page = await browser.newPage();
