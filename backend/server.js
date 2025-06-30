@@ -23,8 +23,12 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: allowedOrigins,
-  credentials: true, // if you send cookies/auth, otherwise omit
+  origin: (incomingOrigin, callback) => {
+    // allow requests w/o origin (e.g. curl) or from any extension/website
+    callback(null, true);
+  },
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(express.json());
