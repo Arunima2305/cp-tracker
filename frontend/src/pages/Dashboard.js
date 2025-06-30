@@ -71,7 +71,7 @@ const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
 
   const fetchQuestions = async () => {
     try {
-      const res = await axios.get("/questions");
+      const res = await axios.get("/api/questions");
       setQuestions(res.data);
     } catch (err) {
       console.error("Error fetching questions:", err);
@@ -80,7 +80,7 @@ const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
 
   const handleAddQuestion = async () => {
     try {
-      const res = await axios.post("/questions", newQuestion);
+      const res = await axios.post("/api/questions", newQuestion);
       setQuestions((prev) => [res.data, ...prev]);
       setAddOpen(false);
       setNewQuestion({ title: '', url: '', notes: '', tags: '', difficulty: '' });
@@ -92,7 +92,7 @@ const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
   const toggleStatus = async (index) => {
     const question = questions[index];
     try {
-      const res = await axios.patch(`/questions/${question._id}`, {
+      const res = await axios.patch(`/api/questions/${question._id}`, {
         status: !question.status,
       });
       setQuestions(prev => prev.map((q, i) => (i === index ? res.data : q)));
@@ -104,7 +104,7 @@ const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
   const toggleRevisit = async (index) => {
     const question = questions[index];
     try {
-      const res = await axios.patch(`/questions/${question._id}`, {
+      const res = await axios.patch(`/api/questions/${question._id}`, {
         revisit: !question.revisit,
       });
       setQuestions(prev => prev.map((q, i) => (i === index ? res.data : q)));
@@ -123,7 +123,7 @@ const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
   const handleSaveNote = async () => {
     const question = questions[currentIndex];
     try {
-      const res = await axios.patch(`/questions/${question._id}`, {
+      const res = await axios.patch(`/api/questions/${question._id}`, {
         notes: noteInput,
         tags: tagInput,
       });
@@ -136,7 +136,7 @@ const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
 
   const handleFetchFromUrl = async () => {
     try {
-      const res = await axios.get(`/parse-question?url=${encodeURIComponent(questionUrlInput)}`);
+      const res = await axios.get(`/api/parse-question?url=${encodeURIComponent(questionUrlInput)}`);
       const { title, difficulty, tags } = res.data;
 
       setAutofilledQuestion({
@@ -153,7 +153,7 @@ const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
 
   const handleSubmitAutofilled = async () => {
     try {
-      const res = await axios.post("/questions", autofilledQuestion);
+      const res = await axios.post("/api/questions", autofilledQuestion);
       setQuestions((prev) => [res.data, ...prev]);
       setUrlDialogOpen(false);
       setQuestionUrlInput("");
