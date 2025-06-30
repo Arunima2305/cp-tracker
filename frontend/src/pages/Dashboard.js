@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from "../utils/axios.js ";
+import axios from "../utils/axios.js"; 
 import {
   Box,
   Table,

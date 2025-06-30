@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/pic.png";
 import { useState } from "react";
 
-import axios from "../utils/axios.js ";
+import axios from "../utils/axios.js"; // Ensure this path is correct";
 
 export default function Register() {
   const navigate = useNavigate();

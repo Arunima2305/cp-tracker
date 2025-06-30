@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "../utils/axios.js ";
+import axios from "../utils/axios.js"; 
 import logo from "../assets/pic.png"; // Update with your actual logo path
 
 
