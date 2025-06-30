@@ -5,36 +5,24 @@ export async function getQuestionInfo(url) {
   if (url.includes("leetcode.com")) return scrapeLeetCode(url);
   return { error: "Unsupported platform" };
 }
-import chromium from 'chrome-aws-lambda';
-import puppeteer from 'puppeteer-core'; // Not "puppeteer"
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import puppeteerExtra from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+import chromium from 'chrome-aws-lambda';
+import * as cheerio from "cheerio";
 
 puppeteerExtra.use(StealthPlugin());
-
-
-puppeteer.use(StealthPlugin());
 
 async function scrapeCodeforces(url) {
   let browser = null;
   try {
-    // Use chrome-aws-lambda for production, puppeteer-extra for dev/local
-    const isProd = process.env.AWS_LAMBDA_FUNCTION_VERSION || process.env.NODE_ENV === 'production';
-    if (isProd) {
-      browser = await puppeteerExtra.launch({
-        args: chromium.args,
-        defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath,
-        headless: chromium.headless,
-        ignoreHTTPSErrors: true,
-      });
-    } else {
-      browser = await puppeteerExtra.launch({
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      });
-    }
+    browser = await puppeteerExtra.launch({
+      args: chromium.args,
+      executablePath: await chromium.executablePath,
+      headless: chromium.headless,
+      defaultViewport: chromium.defaultViewport,
+    });
 
+    // ...the rest of your scraping logic...
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: "networkidle2", timeout: 0 });
     await page.waitForSelector(".problem-statement", { timeout: 15000 });
