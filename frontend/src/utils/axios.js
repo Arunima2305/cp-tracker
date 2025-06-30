@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: process.env.BASE_URL || "http://localhost:5000/api",
+  baseURL: process.env.BASE_URL || "https://cp-tracker-zto7.onrender.com",
 });
 
 instance.interceptors.request.use(
