@@ -14,7 +14,19 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors());
+
+
+const allowedOrigins = [
+  "https://cp-tracker-vqyy.onrender.com", // Your frontend deployed domain
+  "http://localhost:3000",                // For local development, if needed
+  // add more origins if needed
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true, // if you send cookies/auth, otherwise omit
+}));
+
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
