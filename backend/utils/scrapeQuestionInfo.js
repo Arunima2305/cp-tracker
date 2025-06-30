@@ -8,7 +8,6 @@ export async function getQuestionInfo(url) {
 import puppeteerExtra from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import chromium from 'chrome-aws-lambda';
-import * as cheerio from "cheerio";
 
 puppeteerExtra.use(StealthPlugin());
 
