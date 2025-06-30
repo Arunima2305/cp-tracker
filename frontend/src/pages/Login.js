@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../utils/axios.js ";
 import logo from "../assets/pic.png"; // Update with your actual logo path
 
 
@@ -15,7 +15,7 @@ export default function Login() {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", {
+      const response = await axios.post("api/auth/login", {
         email,
         password,
       });
