@@ -1,43 +1,50 @@
-# CodeFlow: Smart CP Practice Tracker + Chrome Extension
+# CodeFlow: Competitive Programming Companion
 
-CodeFlow is a productivity-focused web application designed to help competitive programmers **track, manage, and enhance** their coding practice efficiently.
 
-It features a beautifully crafted React-based frontend, a robust Node.js + Express backend, and a powerful **Chrome Extension** that extracts coding problem metadata from popular platforms like **LeetCode** and **Codeforces**—with just a click.
+[![Live Demo](https://img.shields.io/badge/Live-Demo-green.svg)](https://codeflow-frontend.onrender.com)
+[![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-blue.svg)](https://github.com/yourusername/codeflow-extension)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
----
-
-## 🚀 Features
-
-### 🌐 Web App
-
-* 🧩 **Dashboard** to organize and filter solved problems by tags, difficulty, and revisit intent.
-* ✍️ **Notes section** per problem to record logic, edge cases, or mistakes.
-* 📥 **Manual Entry** and **Add via URL** support.
-* 🎯 **Practice Page** with:
-
-  * 🎲 Random problem suggestion
-  * 🧠 AI-powered recommendation engine (Coming Soon!)
-* 📚 **Resources Page** with curated links:
-
-  * TLE Sheet
-  * Striver SDE Sheet
-  * CSES Problem Set
-
-### 🧩 Chrome Extension
-
-* ⚡ 1-click parsing of problem title, difficulty, and tags
-* 📝 Auto-fill problem info in dashboard
-* 🔐 Token-based authentication
-* 🌐 Works with LeetCode and Codeforces
+> Your all-in-one toolkit to manage, track, and accelerate your competitive programming journey.
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 Live Demo
 
-* **Frontend:** React, Tailwind CSS, Framer Motion, React Router DOM, Axios
-* **Backend:** Node.js, Express.js, MongoDB, Puppeteer (via Docker), Cheerio, JWT Auth
-* **Chrome Extension:** HTML, JS, React Hooks, Manifest v3
-* **Deployment:** Render (frontend + backend), GitHub Pages (extension)
+**Frontend (React):** [https://cp-tracker-vqyy.onrender.com/](https://cp-tracker-vqyy.onrender.com/)
+
+**Backend (Node.js):** [https://cp-tracker-b5c9.onrender.com](https://cp-tracker-b5c9.onrender.com)
+
+---
+
+## 🎯 Features
+
+### 🔎 Smart Problem Tracker
+
+* Add problems manually or paste a URL from **LeetCode** or **Codeforces** to auto-fetch details like title, difficulty, and tags.
+* Categorize by status (To-do, Solved, Revisit) and custom tags.
+
+### 🌐 Chrome Extension Integration
+
+* One-click problem saving from any supported problem page.
+* Background communication with backend to parse and save instantly.
+
+### 📅 CP Contest Calendar
+
+* View upcoming contests across major platforms (AtCoder, LeetCode, Codeforces, etc.).
+* Fully interactive with filters.
+
+### 📊 Dashboard
+
+* Search, filter, sort problems.
+* Track your progress visually.
+
+### ⚙️ Technologies Used
+
+* **Frontend:** React, TailwindCSS, Framer Motion, Axios, React Router, MUI
+* **Backend:** Node.js, Express, MongoDB, Puppeteer, Cheerio,Docker
+* **Chrome Extension:** Manifest V3, JS Background Scripts, Messaging APIs
+* **Deployment:** Render (Full Stack)
 
 ---
 
@@ -53,77 +60,88 @@ It features a beautifully crafted React-based frontend, a robust Node.js + Expre
 
 ---
 
-## 🧑‍💻 Setup Locally
+## 🛠️ Setup Instructions
 
-### 🐳 Backend (Dockerized with Puppeteer support)
 
-```bash
-git clone https://github.com/your-username/codeflow.git
-cd codeflow/backend
+###  Backend
 
-# Create .env with MONGO_URI, JWT_SECRET, and optionally PORT
-cp .env.example .env
+You can run the backend either locally or inside a Docker container (recommended for Puppeteer scraping support).
 
-# Build and start
-docker build -t codeflow-backend .
-docker run -p 5000:5000 codeflow-backend
-```
-
-### 💻 Frontend
+### 🔧 Option 1: Run Locally
 
 ```bash
-cd ../frontend
+git clone https://github.com/yourusername/codeflow-backend.git
+cd codeflow-backend
 npm install
-
-# Create .env
-REACT_APP_BASE_URL=http://localhost:5000
-
 npm start
 ```
 
-### 🔌 Chrome Extension (Dev Mode)
+✅ Make sure you have the following in your `.env` file:
 
-1. Navigate to `chrome-extension/` folder
-2. Open `chrome://extensions/` in your browser
-3. Enable **Developer Mode**
-4. Click **Load unpacked** → Select `chrome-extension`
-5. Open a coding problem → click extension to auto-fill it in dashboard
-
----
-
-## 🌍 Deployment (Render.com)
-
-* Deploy **frontend** as static React app with `npm run build`
-* Deploy **backend** as a Docker service (Render supports this directly)
-* Add environment variables in dashboard
-
----
-
-## 📌 Upcoming
-
-* 🧠 AI Recommendation System based on user history
-* 🧠 Personalized revision plans
-
----
-
-## 🤝 Contributing
-
-```bash
-git checkout -b feature/your-feature-name
-git commit -m "Add your changes"
-git push origin feature/your-feature-name
+```env
+PORT=5000
+MONGO_URI=your_mongodb_url
 ```
 
-Then create a PR 🚀
+**Note:** If you are using Puppeteer locally (for Codeforces scraping), make sure Google Chrome is installed or Puppeteer can find Chromium. Otherwise, use Docker (see below).
 
 ---
 
-## 📃 License
+### 🐳 Option 2: Run with Docker (Recommended for Puppeteer)
 
-MIT
+```bash
+git clone https://github.com/yourusername/codeflow-backend.git
+cd codeflow-backend
+docker build -t codeflow-backend .
+docker run -p 5000:5000 --env-file .env codeflow-backend
+```
+
+This setup ensures Puppeteer runs headless Chrome properly, which is required for Codeforces scraping.
+
+
+
+
+### Frontend
+
+```bash
+git clone https://github.com/yourusername/codeflow-frontend.git
+cd codeflow-frontend
+npm install
+npm run build # or npm start for dev
+```
+
+### Chrome Extension (Local)
+
+* Go to `chrome://extensions`
+* Enable Developer Mode
+* Click "Load Unpacked" and select the `extension/` folder
 
 ---
 
-## 📬 Contact
+## 📦 Future Enhancements
 
-Created by Arunima(https://github.com/Arunima2305) • Contributions welcome!
+* 🧠 AI-based problem recommendation engine based on solved tags and behavior
+* 📈 Visual analytics dashboard (solve trends, difficulty progression)
+* 👯 Friend Leaderboard & Collaboration
+
+---
+
+## 🙌 Contributing
+
+Pull requests and stars are welcome! Feel free to fork the project and submit improvements or ideas.
+
+---
+
+## 🧾 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## ✨ Acknowledgments
+
+* Problem metadata parsing via Puppeteer & LeetCode GraphQL
+
+---
+
+Made with ❤️ by Arunima
