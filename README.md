@@ -1,105 +1,129 @@
-# 💻 CodeFlow – Competitive Programming Tracker
+# CodeFlow: Smart CP Practice Tracker + Chrome Extension
 
-CodeFlow is a full-stack web app that helps users track their Competitive Programming progress. Users can add problems, tag them, take notes, and mark them for revisit. Problems can be added manually or fetched automatically by pasting a URL (from Codeforces, LeetCode, etc.).
+CodeFlow is a productivity-focused web application designed to help competitive programmers **track, manage, and enhance** their coding practice efficiently.
 
----
-
-
-
-## 🧠 Tech Stack
-
-- **Frontend**: React.js, Material UI, Axios
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB (Mongoose)
-- **Authentication**: JSON Web Token (JWT)
-- **Web Scraping**: Custom scraper with Puppeteer
-- **Deployment**: Vercel (frontend), Railway (backend + MongoDB)
+It features a beautifully crafted React-based frontend, a robust Node.js + Express backend, and a powerful **Chrome Extension** that extracts coding problem metadata from popular platforms like **LeetCode** and **Codeforces**—with just a click.
 
 ---
 
-## ✨ Features
+## 🚀 Features
 
-- 🔐 User authentication with JWT
-- ➕ Add questions manually or from problem URLs
-- 📝 Save notes and tags for each question
-- ✅ Toggle problem status (Solved / Unsolved)
-- 📌 Bookmark problems to revisit later
-- 🧠 Filter by difficulty, tags, and revisit (Upcoming)
-- 📊 Progress tracker with stats (Upcoming)
-- 📤 Export questions to CSV (Upcoming)
-- 🕶️ Dark mode toggle (Upcoming)
+### 🌐 Web App
+
+* 🧩 **Dashboard** to organize and filter solved problems by tags, difficulty, and revisit intent.
+* ✍️ **Notes section** per problem to record logic, edge cases, or mistakes.
+* 📥 **Manual Entry** and **Add via URL** support.
+* 🎯 **Practice Page** with:
+
+  * 🎲 Random problem suggestion
+  * 🧠 AI-powered recommendation engine (Coming Soon!)
+* 📚 **Resources Page** with curated links:
+
+  * TLE Sheet
+  * Striver SDE Sheet
+  * CSES Problem Set
+
+### 🧩 Chrome Extension
+
+* ⚡ 1-click parsing of problem title, difficulty, and tags
+* 📝 Auto-fill problem info in dashboard
+* 🔐 Token-based authentication
+* 🌐 Works with LeetCode and Codeforces
 
 ---
 
+## 🛠️ Tech Stack
 
-## ⚙️ Local Setup Instructions
+* **Frontend:** React, Tailwind CSS, Framer Motion, React Router DOM, Axios
+* **Backend:** Node.js, Express.js, MongoDB, Puppeteer (via Docker), Cheerio, JWT Auth
+* **Chrome Extension:** HTML, JS, React Hooks, Manifest v3
+* **Deployment:** Render (frontend + backend), GitHub Pages (extension)
 
-### 1. Clone the repo
+---
+
+## 📸 Screenshots
+
+| Screen                  | Description                           |
+| ----------------------- | ------------------------------------- |
+| ![](docs/dashboard.png) | Problem dashboard with tags, notes    |
+| ![](docs/add-url.gif)   | Adding problem using extension        |
+| ![](docs/practice.png)  | Random Practice Problem page          |
+| ![](docs/resources.png) | Curated resource page with animations |
+
+
+---
+
+## 🧑‍💻 Setup Locally
+
+### 🐳 Backend (Dockerized with Puppeteer support)
 
 ```bash
-git clone https://github.com/Arunima2305/cp-tracker.git
-cd cp-tracker
+git clone https://github.com/your-username/codeflow.git
+cd codeflow/backend
+
+# Create .env with MONGO_URI, JWT_SECRET, and optionally PORT
+cp .env.example .env
+
+# Build and start
+docker build -t codeflow-backend .
+docker run -p 5000:5000 codeflow-backend
 ```
 
----
-
-### 2. Backend Setup (`/backend`)
+### 💻 Frontend
 
 ```bash
-cd backend
+cd ../frontend
 npm install
+
+# Create .env
+REACT_APP_BASE_URL=http://localhost:5000
+
+npm start
 ```
 
-Create a `.env` file in `backend/` with:
+### 🔌 Chrome Extension (Dev Mode)
 
-```
-PORT=5000
-MONGODB_URI=your_mongo_uri
-JWT_SECRET=your_jwt_secret
-```
-
-Then start the server:
-
-```bash
-npm run dev
-```
+1. Navigate to `chrome-extension/` folder
+2. Open `chrome://extensions/` in your browser
+3. Enable **Developer Mode**
+4. Click **Load unpacked** → Select `chrome-extension`
+5. Open a coding problem → click extension to auto-fill it in dashboard
 
 ---
 
-### 3. Frontend Setup (`/frontend`)
+## 🌍 Deployment (Render.com)
 
-```bash
-cd frontend
-npm install
-```
-
-Create a `.env` file in `frontend/` with:
-
-```
-VITE_API_BASE_URL=http://localhost:5000/api
-```
-
-Then run the app:
-
-```bash
-npm run dev
-```
+* Deploy **frontend** as static React app with `npm run build`
+* Deploy **backend** as a Docker service (Render supports this directly)
+* Add environment variables in dashboard
 
 ---
 
-## 📅 Upcoming Features
+## 📌 Upcoming
 
-- 🔍 Search & tag-based filtering
-- 📈 Progress analytics dashboard
-- 🖨️ Export to CSV/PDF
-- 🧠 AI-based smart suggestion for next questions
-- 🌍 Public profile with shared question list
+* 🧠 AI Recommendation System based on user history
+* 🧠 Personalized revision plans
 
 ---
 
+## 🤝 Contributing
 
+```bash
+git checkout -b feature/your-feature-name
+git commit -m "Add your changes"
+git push origin feature/your-feature-name
+```
 
-## 🛡 License
+Then create a PR 🚀
 
-This project is open-source and available under the [MIT License](LICENSE).
+---
 
+## 📃 License
+
+MIT
+
+---
+
+## 📬 Contact
+
+Created by Arunima(https://github.com/Arunima2305) • Contributions welcome!
