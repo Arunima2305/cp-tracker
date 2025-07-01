@@ -46,7 +46,7 @@ It features a beautifully crafted React-based frontend, a robust Node.js + Expre
 | Screen                  | Description                           |
 | ----------------------- | ------------------------------------- |
 | ![](docs/dashboard.png) | Problem dashboard with tags, notes    |
-| ![](docs/add-url.gif)   | Adding problem using extension        |
+| ![](docs/add-url.png)   | Adding problem using extension        |
 | ![](docs/practice.png)  | Random Practice Problem page          |
 | ![](docs/resources.png) | Curated resource page with animations |
 
