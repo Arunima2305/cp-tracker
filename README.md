@@ -70,7 +70,7 @@ You can run the backend either locally or inside a Docker container (recommended
 ### 🔧 Option 1: Run Locally
 
 ```bash
-git clone https://github.com/yourusername/codeflow-backend.git
+git clone https://github.com/Arunima2305/codeflow-backend.git
 cd codeflow-backend
 npm install
 npm start
@@ -90,10 +90,10 @@ MONGO_URI=your_mongodb_url
 ### 🐳 Option 2: Run with Docker (Recommended for Puppeteer)
 
 ```bash
-git clone https://github.com/yourusername/codeflow-backend.git
-cd codeflow-backend
-docker build -t codeflow-backend .
-docker run -p 5000:5000 --env-file .env codeflow-backend
+git clone https://github.com/Arunima2305/cp-tracker
+cd backend
+docker build -t backend .
+docker run -p 5000:5000 --env-file .env backend
 ```
 
 This setup ensures Puppeteer runs headless Chrome properly, which is required for Codeforces scraping.
@@ -104,8 +104,8 @@ This setup ensures Puppeteer runs headless Chrome properly, which is required fo
 ### Frontend
 
 ```bash
-git clone https://github.com/yourusername/codeflow-frontend.git
-cd codeflow-frontend
+git clone https://github.com/Arunima2305/cp-tracker
+cd frontend
 npm install
 npm run build # or npm start for dev
 ```
