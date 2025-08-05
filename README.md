@@ -1,8 +1,8 @@
 # CodeFlow: Competitive Programming Companion
 
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-green.svg)](https://codeflow-frontend.onrender.com)
-[![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-blue.svg)](https://github.com/yourusername/codeflow-extension)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-green.svg)](https://cp-tracker-vqyy.onrender.com/)
+[![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-blue.svg)](https://github.com/Arunima2305/cp-tracker)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > Your all-in-one toolkit to manage, track, and accelerate your competitive programming journey.
